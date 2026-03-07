@@ -38,6 +38,7 @@ export interface TweetMetrics {
 export interface PostedTweet {
     id: string;
     text: string;
+    username: string;
 }
 
 export interface Tweet {

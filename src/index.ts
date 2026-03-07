@@ -141,7 +141,7 @@ export class TwitterServer {
     return {
       content: [{
         type: 'text',
-        text: `Tweet posted successfully!\nURL: https://twitter.com/status/${tweet.id}`
+        text: `Tweet posted successfully!\nURL: https://x.com/${tweet.username}/status/${tweet.id}`
       }] as TextContent[]
     };
   }

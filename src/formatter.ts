@@ -9,7 +9,7 @@ export class ResponseFormatter {
       },
       content: tweet.text,
       metrics: tweet.metrics,
-      url: `https://twitter.com/${user.username}/status/${tweet.id}`
+      url: `https://x.com/${user.username}/status/${tweet.id}`
     };
   }
 

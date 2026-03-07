@@ -4,6 +4,7 @@ import { Config, TwitterError, Tweet, TwitterUser, PostedTweet } from './types.j
 export class TwitterClient {
   private client: TwitterApi;
   private rateLimitMap = new Map<string, number>();
+  private cachedUsername: string | null = null;
 
   constructor(config: Config) {
     this.client = new TwitterApi({
@@ -14,6 +15,13 @@ export class TwitterClient {
     });
 
     console.error('Twitter API client initialized');
+  }
+
+  async getUsername(): Promise<string> {
+    if (this.cachedUsername) return this.cachedUsername;
+    const me = await this.client.v2.me();
+    this.cachedUsername = me.data.username;
+    return this.cachedUsername;
   }
 
   async postTweet(text: string, replyToTweetId?: string): Promise<PostedTweet> {
@@ -27,12 +35,14 @@ export class TwitterClient {
       }
 
       const response = await this.client.v2.tweet(tweetOptions);
-      
+      const username = await this.getUsername();
+
       console.error(`Tweet posted successfully with ID: ${response.data.id}${replyToTweetId ? ` (reply to ${replyToTweetId})` : ''}`);
-      
+
       return {
         id: response.data.id,
-        text: response.data.text
+        text: response.data.text,
+        username
       };
     } catch (error) {
       this.handleApiError(error);
