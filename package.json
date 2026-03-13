@@ -1,5 +1,5 @@
 {
-  "name": "@kocoro-lab/twitter-mcp",
+  "name": "@kocoro/twitter-mcp",
   "version": "0.3.0",
   "description": "A Model Context Protocol server for interacting with X/Twitter — post tweets and search.",
   "type": "module",
